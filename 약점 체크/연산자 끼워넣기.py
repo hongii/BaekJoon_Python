@@ -21,7 +21,7 @@ ops_dic = {"+":ops[0], "-":ops[1], "*":ops[2], "//":ops[3]}
 opsList = []
 for key, value in ops_dic.items():
     for i in range(value):
-      opsList.append(key)
+        opsList.append(key)
 
 pm = list(set(permutations(opsList, len(opsList))))
 ans = []
