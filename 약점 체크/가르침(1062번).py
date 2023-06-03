@@ -16,8 +16,8 @@ else:
 
     words = []
     for _ in range(n):
-      str = input()
-      words.append(set(str)-default_char) # 주어진 단어 중에서 필수로 가르쳐야하는 글자 5개를 제외한 나머지 글자의 set을 words리스트에 넣어준다.
+        str = input()
+        words.append(set(str)-default_char) # 주어진 단어 중에서 필수로 가르쳐야하는 글자 5개를 제외한 나머지 글자의 set을 words리스트에 넣어준다.
 
     maxCnt = 0
     possible_cb = list(combinations(remain_alpha, k-5)) # default_char를 제외하고 가르칠 수 있는 글자들(remain_alpha) 중에서 k-5개로 만들 수 있는 조합
