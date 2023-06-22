@@ -1,3 +1,2 @@
-2
-13
-OOIOIOIOIIOII
+5
+3 1 4 3 2
