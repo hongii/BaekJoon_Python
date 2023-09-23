@@ -1,33 +1,70 @@
-# 두번째 코드 -> path 리스트를 하나만 사용해서 지나온 직전 노드를(번호) 저장
+# 2회차 코드 -> visited 배열을 사용
 from collections import deque
 import sys
+filePath = "C:\\Users\\cywoo\\OneDrive\\바탕 화면\\Python\\백준\\BaekJoon\\DFS와 BFS 기본문제\\input.txt"
+sys.stdin = open(filePath, "rt")
+n, k = map(int, input().split())
+
+
+def bfs():
+    dq = deque()
+    visited = [False]*100001
+    pathList = [-1]*(100001)
+    visited[n] = True
+    dq.append((n, 0))
+    while dq:
+        now, time = dq.popleft()
+        if now == k:
+            path = [now]  # 도착노드
+            while now != n:
+                path.append(pathList[now])
+                now = pathList[now]
+            # path에는 마지막 도착지점(k)부터 시작해서 root노드인 n번노드까지, 역순으로 지나온 경로가 저장되어 있으므로 이를 뒤집어서 출력해야 한다.
+            path.reverse()
+            return time, path
+
+        for x in [now-1, now+1, now*2]:
+            if 0 <= x < 100001 and not visited[x]:
+                visited[x] = True
+                pathList[x] = now  # pathList의 현재 노드(x)에는 부모노드(now)를 저장한다.
+                dq.append((x, time+1))
+
+
+time, path = bfs()
+print(time)
+print(*path)
+
+
+# 두번째 코드 -> path 리스트를 하나만 사용해서 지나온 직전 노드를(번호) 저장
 filePath = "C:\\Users\\cywoo\\OneDrive\\바탕 화면\\Python\\백준\\BaekJoon\\DFS와 BFS 기본문제\\input.txt"
 sys.stdin = open(filePath, "rt")
 
 n, k = map(int, input().split())
 
+
 def bfs():
-  dq = deque()
-  times = [-1]*100001
-  pathList = [-1]*(100001)
-  times[n] = 0
-  dq.append(n)
-  while dq:
-    now = dq.popleft()
-    if now == k:
-      path = [now]
-      while now != n:
-        path.append(pathList[now])
-        now = pathList[now]
-      # path에는 마지막 도착지점(k)부터 시작해서 root노드인 n번노드까지, 역순으로 지나온 경로가 저장되어 있으므로 이를 뒤집어서 출력해야 한다.
-      path.reverse()
-      return times[k], path
-    
-    for x in [now-1, now+1, now*2]:
-      if 0 <= x < 100001 and times[x] == -1:
-        times[x] = times[now] + 1 
-        pathList[x] = now # pathList의 현재 노드(x)에는 부모노드(now)를 저장한다. 
-        dq.append(x)
+    dq = deque()
+    times = [-1]*100001
+    pathList = [-1]*(100001)
+    times[n] = 0
+    dq.append(n)
+    while dq:
+        now = dq.popleft()
+        if now == k:
+            path = [now]
+            while now != n:
+                path.append(pathList[now])
+                now = pathList[now]
+            # path에는 마지막 도착지점(k)부터 시작해서 root노드인 n번노드까지, 역순으로 지나온 경로가 저장되어 있으므로 이를 뒤집어서 출력해야 한다.
+            path.reverse()
+            return times[k], path
+
+        for x in [now-1, now+1, now*2]:
+            if 0 <= x < 100001 and times[x] == -1:
+                times[x] = times[now] + 1
+                pathList[x] = now  # pathList의 현재 노드(x)에는 부모노드(now)를 저장한다.
+                dq.append(x)
+
 
 time, path = bfs()
 print(time)
